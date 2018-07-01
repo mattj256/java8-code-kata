@@ -7,8 +7,11 @@ import org.junit.Test;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
@@ -26,7 +29,9 @@ public class Exercise5Test {
         /**
          * Create a {@link java.sql.Timestamp} from {@link ldt}
          */
-        Timestamp timestamp = null;
+        ZonedDateTime zdt = ldt.atZone(ZoneId.systemDefault());
+        Instant instant = zdt.toInstant();
+        Timestamp timestamp = new Timestamp(instant.toEpochMilli());
 
         assertThat(timestamp.toString(), is("2015-06-18 23:07:30.5"));
     }
